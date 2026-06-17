@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────
+   Theme — Custom design tokens for Tailwind v4
+   ────────────────────────────────────────────── */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Fira Mono", ui-monospace, monospace;
+
+  --color-glass-light: rgba(255, 255, 255, 0.05);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-glass-border-hover: rgba(255, 255, 255, 0.18);
+  --color-glass-darker: rgba(0, 0, 0, 0.4);
+  --color-accent-purple: #8b5cf6;
+  --color-accent-blue: #3b82f6;
+  --color-accent-glow: rgba(139, 92, 246, 0.25);
+}
+
+/* ──────────────────────────────────────────────
+   Base resets & body
+   ────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+/* ──────────────────────────────────────────────
+   Enhanced Dynamic Nebula Gradient Background
+   ────────────────────────────────────────────── */
+body {
+  background-color: #07060e;
+  position: relative;
+}
+
+/* Layer 1: Base static nebula clouds */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 900px 700px at 10% 20%, rgba(88, 28, 135, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 700px 600px at 85% 75%, rgba(30, 58, 138, 0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 500px 500px at 50% 40%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 400px 300px at 70% 20%, rgba(59, 130, 246, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 600px 400px at 25% 80%, rgba(124, 58, 237, 0.10) 0%, transparent 60%);
+  animation: nebulaDrift1 25s ease-in-out infinite alternate;
+}
+
+/* Layer 2: Secondary floating nebula wisps */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 800px 500px at 75% 30%, rgba(109, 40, 217, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 600px 450px at 20% 65%, rgba(37, 99, 235, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse 350px 350px at 60% 80%, rgba(167, 139, 250, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 300px 250px at 40% 15%, rgba(196, 181, 253, 0.04) 0%, transparent 50%);
+  animation: nebulaDrift2 30s ease-in-out infinite alternate-reverse;
+  filter: blur(20px);
+}
+
+/* Cosmic dust particle shimmer overlay */
+#root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle 2px at 15% 25%, rgba(255, 255, 255, 0.08) 0%, transparent 100%),
+    radial-gradient(circle 1.5px at 45% 60%, rgba(196, 181, 253, 0.06) 0%, transparent 100%),
+    radial-gradient(circle 2px at 78% 35%, rgba(255, 255, 255, 0.07) 0%, transparent 100%),
+    radial-gradient(circle 1px at 88% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 100%),
+    radial-gradient(circle 1.5px at 32% 88%, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+  animation: dustShimmer 8s ease-in-out infinite alternate;
+}
+
+@keyframes nebulaDrift1 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.85; }
+  33% { transform: translate(40px, -25px) scale(1.04) rotate(0.5deg); opacity: 1; }
+  66% { transform: translate(-20px, 30px) scale(0.97) rotate(-0.3deg); opacity: 0.9; }
+  100% { transform: translate(15px, -10px) scale(1.02) rotate(0.2deg); opacity: 0.95; }
+}
+
+@keyframes nebulaDrift2 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.8; }
+  50% { transform: translate(-35px, 20px) scale(1.06) rotate(-0.4deg); opacity: 1; }
+  100% { transform: translate(25px, -15px) scale(0.95) rotate(0.3deg); opacity: 0.85; }
+}
+
+@keyframes dustShimmer {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.4; }
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ──────────────────────────────────────────────
+   DVD Bouncing Square
+   ────────────────────────────────────────────── */
+.dvd-square {
+  position: fixed;
+  z-index: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  opacity: 0.55;
+  pointer-events: none;
+  will-change: transform;
+  filter: blur(0.5px);
+  box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
+  transition: background-color 1.5s ease, box-shadow 1.5s ease;
+}
+
+/* ──────────────────────────────────────────────
+   Custom scrollbar (dark glass aesthetic)
+   ────────────────────────────────────────────── */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.2); }
+.custom-scrollbar { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.1) transparent; }
+
+/* ──────────────────────────────────────────────
+   react-simple-code-editor overrides
+   ────────────────────────────────────────────── */
+.editor-container textarea,
+.editor-container pre {
+  font-family: var(--font-mono) !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+  padding: 1.5rem !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: #e2e8f0 !important;
+  caret-color: var(--color-accent-purple) !important;
+}
+
+.editor-container textarea::placeholder { color: rgba(148, 163, 184, 0.4); }
+.editor-container textarea:focus { outline: none !important; box-shadow: none !important; }
+
+/* Prism token colors (dark theme adjustments) */
+.editor-container .token.comment, .editor-container .token.prolog, .editor-container .token.doctype, .editor-container .token.cdata { color: #636e7b; }
+.editor-container .token.keyword { color: #c792ea; }
+.editor-container .token.function { color: #82aaff; }
+.editor-container .token.string { color: #c3e88d; }
+.editor-container .token.number { color: #f78c6c; }
+.editor-container .token.operator { color: #89ddff; }
+.editor-container .token.punctuation { color: #89ddff; }
+
+/* ──────────────────────────────────────────────
+   Markdown output styling (Replaces prose)
+   ────────────────────────────────────────────── */
+.markdown-body {
+  color: #e2e8f0;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+  color: #f8fafc;
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
+  letter-spacing: -0.01em;
+}
+
+.markdown-body h1 { font-size: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 0.4em; }
+.markdown-body h2 { font-size: 1.25rem; }
+.markdown-body h3 { font-size: 1.1rem; color: #c4b5fd; }
+.markdown-body p { margin-bottom: 0.85em; color: #cbd5e1; }
+.markdown-body ul, .markdown-body ol { padding-left: 1.5em; margin-bottom: 0.85em; }
+.markdown-body li { margin-bottom: 0.35em; color: #cbd5e1; }
+.markdown-body li::marker { color: rgba(139, 92, 246, 0.6); }
+.markdown-body strong { color: #f1f5f9; font-weight: 600; }
+.markdown-body em { color: #c4b5fd; }
+.markdown-body a { color: #818cf8; text-decoration: underline; text-underline-offset: 2px; }
+.markdown-body a:hover { color: #a78bfa; }
+
+/* Inline code */
+.markdown-body code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background-color: rgba(139, 92, 246, 0.12);
+  color: #c4b5fd;
+  padding: 0.15em 0.4em;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+/* Code blocks */
+.markdown-body pre {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin: 1em 0;
+  overflow-x: auto;
+}
+
+.markdown-body pre code {
+  font-family: var(--font-mono) !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.7;
+  background: transparent !important;
+  color: #e2e8f0;
+  padding: 0 !important;
+}
+
+.markdown-body hr { border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 1.5em 0; }
+.markdown-body blockquote { border-left: 3px solid rgba(139, 92, 246, 0.4); padding-left: 1em; margin: 1em 0; color: #94a3b8; font-style: italic; }
+
+/* ──────────────────────────────────────────────
+   Loading spinner & Empty state pulse
+   ────────────────────────────────────────────── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+.pulse-subtle { animation: pulse-subtle 3s ease-in-out infinite; }
